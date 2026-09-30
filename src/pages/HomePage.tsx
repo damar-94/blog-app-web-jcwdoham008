@@ -13,7 +13,7 @@ import {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious
+  PaginationPrevious,
 } from "@/components/ui/pagination";
 import type { Post } from "@/types/post";
 
@@ -21,7 +21,7 @@ function HomePage() {
   const [blogs, setBlogs] = useState<PaginationResponse<Post> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-
+  console.log(blogs);
   const { user, logout } = useAuth();
 
   const getBlogs = async () => {
@@ -29,7 +29,7 @@ function HomePage() {
       const { data } = await axiosInstance.get<PaginationResponse<Post>>(
         "/posts",
         {
-          params: { page: page },
+          params: { page: page, take: 3 },
         },
       );
       setBlogs(data);
