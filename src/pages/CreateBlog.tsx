@@ -34,7 +34,6 @@ function CreateBlog() {
       title: "",
       description: "",
       category: "",
-      author: "",
       content: "",
       thumbnail: undefined,
     },
@@ -50,16 +49,16 @@ function CreateBlog() {
       const folderName = "images";
 
       const response = await axiosInstance.post<ResponseFileService>(
-        `/files/${folderName}/${fileName}`,
+        `https://adonicrifle-us.backendless.app/api/files/${folderName}/${fileName}`,
         formData,
       );
 
       // step 2 : submit data (yang berupa tulisan) ke backendless
-      await axiosInstance.post("/data/Blogs", {
+      await axiosInstance.post("/posts", {
         title: data.title,
         description: data.description,
         category: data.category,
-        author: data.author,
+        userId: 2,
         content: data.content,
         thumbnail: response.data.fileURL,
       });
@@ -150,25 +149,7 @@ function CreateBlog() {
                 )}
               />
 
-              <Controller
-                name="author"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="form-author">Author</FieldLabel>
-                    <Input
-                      {...field}
-                      id="form-author"
-                      aria-invalid={fieldState.invalid}
-                      placeholder="Your author"
-                      autoComplete="off"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
+             
 
               <Controller
                 name="content"
