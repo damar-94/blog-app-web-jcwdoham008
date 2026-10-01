@@ -58,7 +58,6 @@ function CreateBlog() {
         title: data.title,
         description: data.description,
         category: data.category,
-        userId: 2,
         content: data.content,
         thumbnail: response.data.fileURL,
       });
